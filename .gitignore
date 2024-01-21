@@ -1,0 +1,20 @@
+venv/
+.idea/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Игнорировать JSON файл
+hh_data.json
+
+# Игнорировать файлы проекта
+*.sublime-workspace
+*.sublime-project
+
+# Игнорировать файл с настройками пользователя
+*.swp
+
+# Игнорировать файлы окружения
+.env
