@@ -22,6 +22,21 @@ class DBManager:
 
         return db_config
 
+    def get_avg_salary(self):
+        self.cur.execute(
+            "SELECT AVG(CAST(salary->>'from' AS INTEGER)) FROM vacancies WHERE salary->>'from' IS NOT NULL")
+        avg_salary = self.cur.fetchone()[0]
+        return avg_salary
+
+    def get_vacancies_with_higher_salary(self):
+        avg_salary = self.get_avg_salary()
+        self.cur.execute("SELECT * FROM vacancies WHERE CAST(salary->>'from' AS INTEGER) > %s", (avg_salary,))
+        return self.cur.fetchall()
+
+    def get_vacancies_with_keyword(self, keyword):
+        self.cur.execute("SELECT * FROM vacancies WHERE LOWER(name) LIKE %s", ('%' + keyword.lower() + '%',))
+        return self.cur.fetchall()
+
     def create_tables(self):
         create_companies_table = """
         CREATE TABLE IF NOT EXISTS companies (

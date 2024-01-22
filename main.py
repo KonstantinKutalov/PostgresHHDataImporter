@@ -112,6 +112,20 @@ def run_project():
     print(f"Общее количество компаний: {companies_count}")
     print(f"Общее количество вакансий: {vacancies_count}")
 
+    avg_salary = db_manager.get_avg_salary()
+    print(f"Средняя зарплата по вакансиям: {avg_salary}")
+
+    high_salary_vacancies = db_manager.get_vacancies_with_higher_salary()
+    print("\nВакансии с зарплатой выше средней:")
+    for vacancy in high_salary_vacancies:
+        print(vacancy)
+
+    keyword = input("Введите ключевое слово для поиска вакансий: ")
+    keyword_vacancies = db_manager.get_vacancies_with_keyword(keyword)
+    print(f"\nВакансии с ключевым словом '{keyword}':")
+    for vacancy in keyword_vacancies:
+        print(vacancy)
+
     db_manager.close_connection()
 
 
